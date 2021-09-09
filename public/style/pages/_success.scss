@@ -1,0 +1,17 @@
+.page-success {
+  .row-login {
+    min-height: 75vh;
+  }
+  .section-success {
+    h2 {
+      font-size: 28px;
+      font-weight: 200;
+      margin-top: 0;
+      color: #0c0d36;
+    }
+    .btn-signup {
+      @include button-variant(#f3f3f3, transparent);
+      color: #bbbbbb;
+    }
+  }
+}

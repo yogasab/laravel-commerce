@@ -1,0 +1,13 @@
+.store-breadcrumbs{
+  .breadcrumb{
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+  .breadcrumb-item.active{
+    font-weight: 400;
+    color: #0c0d36;
+  }
+  a{
+    color: #979797;
+  }
+}
