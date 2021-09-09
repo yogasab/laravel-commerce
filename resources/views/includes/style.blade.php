@@ -6,4 +6,4 @@
     crossorigin="anonymous"
 />
 
-<link href="style/main.css" rel="stylesheet" />
+<link href="/style/main.css" rel="stylesheet" />
