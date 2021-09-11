@@ -157,7 +157,7 @@
                             </div>
                             <div class="col-12 col-md-6">
                               <div class="product-title">
-                                Status Pengiriman
+                                Status Pembayaran
                               </div>
                               <div class="product-subtitle">Pending</div>
                             </div>
@@ -222,7 +222,6 @@
                                 class="form-control"
                                 v-model="status"
                               >
-                                <option value="UNPAID">Unpaind</option>
                                 <option value="PENDING">Pending</option>
                                 <option value="SHIPPING">Shipping</option>
                                 <option value="ARRIVED">Arrived</option>
