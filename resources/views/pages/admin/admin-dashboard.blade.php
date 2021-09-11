@@ -1,6 +1,6 @@
 @extends('layouts.admin') 
 
-@section('title') Dashboard Page @endsection
+@section('title') Admin Dashboard @endsection
 
 @section('content')
 <div class="page-dashboard">
@@ -105,10 +105,10 @@
                                 <div class="card mb-2">
                                     <div class="card-body">
                                         <div class="dashboard-card-title">
-                                            Customer
+                                            Customers
                                         </div>
                                         <div class="dashboard-card-subtitle">
-                                            5197
+                                            {{ $customers }}
                                         </div>
                                     </div>
                                 </div>
@@ -117,10 +117,10 @@
                                 <div class="card mb-2">
                                     <div class="card-body">
                                         <div class="dashboard-card-title">
-                                            Revenue
+                                            Revenues
                                         </div>
                                         <div class="dashboard-card-subtitle">
-                                            Rp 9.811.927
+                                            Rp {{ $revenues }}
                                         </div>
                                     </div>
                                 </div>
@@ -132,7 +132,7 @@
                                             Customer
                                         </div>
                                         <div class="dashboard-card-subtitle">
-                                            Rp 9.811.927
+                                            {{ $customers }}
                                         </div>
                                     </div>
                                 </div>
