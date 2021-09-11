@@ -1,7 +1,7 @@
 @extends('layouts.app') 
 
-@section('title')
-    Details Product
+@section('title') 
+    Details Product 
 @endsection
 
 @section('content')
@@ -186,42 +186,40 @@
         </section>
     </div>
 </div>
-@endsection
-
-@push('addon-script')
-  <script src="/vendor/vue/vue.js"></script>
-  <script>
-      var gallery = new Vue({
-          el: "#gallery",
-          mounted() {
-              AOS.init();
-          },
-          data: {
-              activePhoto: 1,
-              photos: [
-                  {
-                      id: 1,
-                      url: "/images/product-details-1.jpg",
-                  },
-                  {
-                      id: 2,
-                      url: "/images/product-details-2.jpg",
-                  },
-                  {
-                      id: 3,
-                      url: "/images/product-details-3.jpg",
-                  },
-                  {
-                      id: 4,
-                      url: "/images/product-details-4.jpg",
-                  },
-              ],
-          },
-          methods: {
-              changeActive(id) {
-                  this.activePhoto = id;
-              },
-          },
-      });
-  </script>
+@endsection @push('addon-script')
+<script src="/vendor/vue/vue.js"></script>
+<script>
+    var gallery = new Vue({
+        el: "#gallery",
+        mounted() {
+            AOS.init();
+        },
+        data: {
+            activePhoto: 1,
+            photos: [
+                {
+                    id: 1,
+                    url: "/images/product-details-1.jpg",
+                },
+                {
+                    id: 2,
+                    url: "/images/product-details-2.jpg",
+                },
+                {
+                    id: 3,
+                    url: "/images/product-details-3.jpg",
+                },
+                {
+                    id: 4,
+                    url: "/images/product-details-4.jpg",
+                },
+            ],
+        },
+        methods: {
+            changeActive(id) {
+                this.activePhoto = id;
+            },
+        },
+    });
+</script>
 @endpush

@@ -1,7 +1,65 @@
-@extends('layouts.app')
+@extends('layouts.auth')
+
+@section('title')
+    Login
+@endsection
 
 @section('content')
-<div class="container">
+<div class="page-content page-auth">
+    <div class="section-auth-store" data-aos="fade-up">
+        <div class="container">
+            <div class="row align-items-center row-login">
+                <div class="col-lg-6 text-center">
+                    <img
+                        src="/images/login-placeholder.png"
+                        alt=""
+                        class="w-50 mb-4 mb-lg-none"
+                    />
+                </div>
+                <div class="col-lg-5">
+                    <h2>
+                        Belanja kebutuhan utama <br />
+                        menjadi semakin mudah
+                    </h2>
+                    <form action="" class="mt-3">
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input
+                                type="email"
+                                name="email"
+                                id="email"
+                                class="form-control w-75"
+                            />
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input
+                                type="password"
+                                name="password"
+                                id="password"
+                                class="form-control w-75"
+                            />
+                        </div>
+                        <a
+                            href="/dashboard.html"
+                            class="btn btn-success w-50 mt-3"
+                        >
+                            Login
+                        </a>
+                        <a
+                            href="{{ route('register') }}"
+                            class="btn btn-signup w-50 mt-3"
+                        >
+                            Register
+                        </a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container" style="display: none">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">

@@ -11,10 +11,15 @@
 
         <title>@yield('title')</title>
         <!-- CSS -->
-        @stack('prepend-style') @include('includes/style') @stack('addon-style')
+        @stack('prepend-style')
+        @include('includes/style')
+        @stack('addon-style')
     </head>
 
     <body>
+        <!-- Navbar -->
+        @include('includes/navbar-auth')
+
         <!-- Page Content -->
         @yield('content')
 
@@ -22,7 +27,8 @@
         @include('includes/footer')
 
         <!-- Script -->
-        @stack('prepend-script') @include('includes/script')
+        @stack('prepend-script')
+        @include('includes/script')
         @stack('addon-script')
     </body>
 </html>
