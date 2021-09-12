@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
+use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
@@ -46,6 +47,7 @@ Route::get('/dashboard/account', [DashboardSettingController::class, 'store'])->
 
 // Admin Routes
 // middleware(['auth', 'admin'])
-Route::prefix('admin')->namespace('Admin')->group(function () {
+Route::prefix('admin')->group(function () {
   Route::get('/', [AdminDashboardController::class, 'index'])->name('admin-dashboard');
+  Route::resource('category', Admin\CategoryController::class);
 });

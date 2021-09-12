@@ -6,3 +6,8 @@
     crossorigin="anonymous"
 />
 <link href="/style/main.css" rel="stylesheet" />
+<link
+    rel="stylesheet"
+    type="text/css"
+    href="https://cdn.datatables.net/v/bs4/dt-1.11.2/datatables.min.css"
+/>

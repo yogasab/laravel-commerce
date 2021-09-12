@@ -1,7 +1,5 @@
 @extends('layouts.admin') 
-
 @section('title') Admin Dashboard @endsection
-
 @section('content')
 <div class="page-dashboard">
     <div class="d-flex" id="wrapper" data-aos="fade-right">
@@ -10,39 +8,31 @@
             <div class="sidebar-heading text-center">
                 <img
                     src="/images/admin-icon.svg"
-                    alt=""  
-                    class="my-4" style="max-width: 120px"
+                    alt=""
+                    class="my-4"
+                    style="max-width: 120px"
                 />
             </div>
             <div class="list-group list-group-flush">
                 <a
-                    href="#"
-                    class="list-group-item list-group-item-action active"
+                    href="{{ route('admin-dashboard') }}"
+                    class="list-group-item list-group-item-action {{ (request()->is('admin')) ? 'active' : '' }}"
                 >
                     Dashboard
                 </a>
-                <a
-                    href="#"
-                    class="list-group-item list-group-item-action"
-                >
+                <a href="" class="list-group-item list-group-item-action">
                     Products
                 </a>
                 <a
-                    href="#"
+                    href="{{ route('category.index') }}"
                     class="list-group-item list-group-item-action"
                 >
-                    Categories
+                    Category
                 </a>
-                <a
-                    href="#"
-                    class="list-group-item list-group-item-action"
-                >
+                <a href="#" class="list-group-item list-group-item-action">
                     Transactions
                 </a>
-                <a
-                    href="#"
-                    class="list-group-item list-group-item-action"
-                >
+                <a href="#" class="list-group-item list-group-item-action">
                     Users
                 </a>
                 <a href="" class="list-group-item list-group-item-action">
@@ -76,14 +66,10 @@
                     </button>
                     <div class="collapse navbar-collapse" id="navbarResponsive">
                         <!-- Desktop Menu -->
-                        <ul class="navbar-nav d-none d-lg-flex ml-auto">
-                            
-                        </ul>
+                        <ul class="navbar-nav d-none d-lg-flex ml-auto"></ul>
 
                         <!-- Smartphone Menu -->
-                        <ul class="navbar-nav d-block d-lg-none">
-                            
-                        </ul>
+                        <ul class="navbar-nav d-block d-lg-none"></ul>
                     </div>
                 </div>
             </nav>
