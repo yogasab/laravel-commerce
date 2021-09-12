@@ -1,4 +1,5 @@
-@extends('layouts.admin') @section('title') Admin Dashboard @endsection
+@extends('layouts.admin') 
+@section('title') Admin Dashboard @endsection
 @section('content')
 <div class="page-dashboard">
     <div class="d-flex" id="wrapper" data-aos="fade-right">
@@ -24,14 +25,14 @@
                 </a>
                 <a
                     href="{{ route('category.index') }}"
-                    class="list-group-item list-group-item-action {{ (request()->is('admin/category*')) ? 'active' : '' }}"
+                    class="list-group-item list-group-item-action"
                 >
                     Category
                 </a>
                 <a href="#" class="list-group-item list-group-item-action">
                     Transactions
                 </a>
-                <a href="#" class="list-group-item list-group-item-action">
+                <a href="{{ route('user.index') }}" class="list-group-item list-group-item-action {{ (request()->is('admin/user*')) ? 'active' : '' }}">
                     Users
                 </a>
                 <a href="" class="list-group-item list-group-item-action">
@@ -79,9 +80,9 @@
             >
                 <div class="container-fluid">
                     <div class="dashboard-heading mt-3 ml-2">
-                        <h2 class="dashboard-heading-title">Category</h2>
+                        <h2 class="dashboard-heading-title">User</h2>
                         <p class="dashboard-heading-subtitle">
-                            List of Category
+                            List of User
                         </p>
                     </div>
                     <div class="dashboard-content">
@@ -89,8 +90,8 @@
                             <div class="col-md-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <a href="{{ route('category.create') }}" class="btn btn-outline-info mb-4">
-                                            + Tambah Kategori
+                                        <a href="{{ route('user.create') }}" class="btn btn-outline-info mb-4">
+                                            + Tambah User
                                         </a>
                                         <div class="table-responsive">
                                             <table class="table table-hover table-striped scroll-horizontal-vertical w-100" id="crudTable">
@@ -98,8 +99,8 @@
                                                     <tr>
                                                         <th>ID</th>
                                                         <th>Nama</th>
-                                                        <th>Foto</th>
-                                                        <th>Slug</th>
+                                                        <th>Email</th>
+                                                        <th>Roles</th>
                                                         <th>Aksi</th>
                                                     </tr>
                                                 </thead>
@@ -135,8 +136,8 @@
     columns: [
         {data: 'id', name: 'id'},
         {data: 'name', name: 'name'},
-        {data: 'photo', name: 'photo'},
-        {data: 'slug', name: 'slug'},
+        {data: 'email', name: 'email'},
+        {data: 'roles', name: 'roles'},
         {
             data: 'action',
             name: 'action',
