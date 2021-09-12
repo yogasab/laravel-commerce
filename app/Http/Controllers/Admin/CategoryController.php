@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\CategoryRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
@@ -55,7 +57,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.admin.category.create');
     }
 
     /**
@@ -64,9 +66,13 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
-        //
+        $input = $request->all();
+        $input['slug'] = Str::slug($request->category);
+        $input['photo'] = $request->file('photo')->store('assets/category', 'public');
+        Category::create($input);
+        return redirect()->route('category.index');
     }
 
     /**
@@ -88,7 +94,10 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = [
+            'item' => Category::findOrFail($id)
+        ];
+        return view('pages.admin.category.edit', $data);
     }
 
     /**
@@ -98,9 +107,14 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CategoryRequest $request, $id)
     {
-        //
+        $input = $request->all();
+        $input['slug'] = Str::slug($request->name);
+        $input['photo'] = $request->file('photo')->store('assets/category', 'public');
+        $item = Category::findOrFail($id);
+        $item->update($input);
+        return redirect()->route('category.index');
     }
 
     /**
@@ -111,6 +125,8 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $item = Category::findOrFail($id);
+        $item->delete();
+        return redirect()->route('category.index');
     }
 }
