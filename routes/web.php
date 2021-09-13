@@ -52,4 +52,5 @@ Route::prefix('admin')->group(function () {
   Route::resource('category', Admin\CategoryController::class);
   Route::resource('user', Admin\UserController::class);
   Route::resource('product', Admin\ProductController::class);
+  Route::resource('product-gallery', Admin\ProductGalleryController::class);
 });
