@@ -25,10 +25,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Auth::routes();
-Route::get('/success', [CartController::class, 'success'])->name('success');
-Route::get('/register/success', [RegisterController::class, 'registerSuccess'])->name('register-success');
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/categories', [CategoryController::class, 'index'])->name('categories');
+Route::get('/categories/{id}', [CategoryController::class, 'detail'])->name('categories-detail');
+Route::get('/success', [CartController::class, 'success'])->name('success');
+Route::get('/register/success', [RegisterController::class, 'registerSuccess'])->name('register-success');
 Route::get('/detail/{id}', [DetailController::class, 'index'])->name('detail');
 Route::get('/cart', [CartController::class, 'index'])->name('cart');
 

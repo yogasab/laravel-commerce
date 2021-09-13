@@ -130,6 +130,7 @@
                                                             type="file"
                                                             name="photo"
                                                             class="form-control"
+                                                            value="{{ $item->photo }}"
                                                         />
                                                     </div>
                                                 </div>

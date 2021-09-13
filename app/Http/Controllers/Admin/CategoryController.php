@@ -69,7 +69,7 @@ class CategoryController extends Controller
     public function store(CategoryRequest $request)
     {
         $input = $request->all();
-        $input['slug'] = Str::slug($request->category);
+        $input['slug'] = Str::slug($request->name);
         $input['photo'] = $request->file('photo')->store('assets/category', 'public');
         Category::create($input);
         return redirect()->route('category.index');
