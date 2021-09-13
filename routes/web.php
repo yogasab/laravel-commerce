@@ -51,4 +51,5 @@ Route::prefix('admin')->group(function () {
   Route::get('/', [AdminDashboardController::class, 'index'])->name('admin-dashboard');
   Route::resource('category', Admin\CategoryController::class);
   Route::resource('user', Admin\UserController::class);
+  Route::resource('product', Admin\ProductController::class);
 });
