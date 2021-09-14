@@ -1,5 +1,4 @@
-@extends('layouts.admin') 
-@section('title') Admin Dashboard @endsection
+@extends('layouts.admin') @section('title') Admin Dashboard @endsection
 @section('content')
 <div class="page-dashboard">
     <div class="d-flex" id="wrapper" data-aos="fade-right">
@@ -20,7 +19,10 @@
                 >
                     Dashboard
                 </a>
-                <a href="" class="list-group-item list-group-item-action">
+                <a
+                    href="{{ route('product.index') }}"
+                    class="list-group-item list-group-item-action {{ (request()->is('admin/product*')) ? 'active' : '' }}"
+                >
                     Products
                 </a>
                 <a
@@ -32,7 +34,16 @@
                 <a href="#" class="list-group-item list-group-item-action">
                     Transactions
                 </a>
-                <a href="#" class="list-group-item list-group-item-action">
+                <a
+                    href="{{ route('product-gallery.index') }}"
+                    class="list-group-item list-group-item-action {{ (request()->is('admin/product-gallery*')) ? 'active' : '' }}"
+                >
+                    Gallery
+                </a>
+                <a
+                    href="{{ route('user.index') }}"
+                    class="list-group-item list-group-item-action"
+                >
                     Users
                 </a>
                 <a href="" class="list-group-item list-group-item-action">
@@ -234,9 +245,7 @@
         </div>
     </div>
 </div>
-@endsection 
-
-@push('addon-script')
+@endsection @push('addon-script')
 <script>
     $("#menu-toggle").click(function (e) {
         e.preventDefault();

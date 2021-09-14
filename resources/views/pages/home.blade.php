@@ -114,8 +114,8 @@
                     <h5 class="mb-4">New Products</h5>
                 </div>
             </div>
-            @forelse ($products as $product)
-                <div class="row">
+            <div class="row">
+                @forelse ($products as $product)
                     <div
                         class="col-6 col-md-4 col-lg-3"
                         data-aos="fade-up"
@@ -141,24 +141,24 @@
                             <div class="products-price">Rp {{ $product->price }}</div>
                         </a>
                     </div>
-                </div>
-            @empty
-                <div
-                class="col-6 col-md-3 col-lg-2"
-                data-aos="fade-up"
-                data-aos-delay="{{ $incrementDelay += 100; }}" >
-                    <a href="" class="component-categories d-block">
-                        <div class="categories-image">
-                            <img
-                                src="/images/categories-tools.svg"
-                                alt=""
-                                class="w-100"
-                            />
-                        </div>
-                        <p class="categories-text">No products found</p>
-                    </a>
-                </div>
-            @endforelse
+                @empty
+                    <div
+                    class="col-6 col-md-3 col-lg-2"
+                    data-aos="fade-up"
+                    data-aos-delay="{{ $incrementDelay += 100; }}" >
+                        <a href="" class="component-categories d-block">
+                            <div class="categories-image">
+                                <img
+                                    src="/images/categories-tools.svg"
+                                    alt=""
+                                    class="w-100"
+                                />
+                            </div>
+                            <p class="categories-text">No products found</p>
+                        </a>
+                    </div>
+                @endforelse
+            </div>
         </div>
     </section>
 </div>

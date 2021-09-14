@@ -12,33 +12,33 @@
         </div>
         <div class="row">
           @php $incrementDelay = 0; @endphp
-          @forelse ($categories as $category)
-            <div
-              class="col-6 col-md-3 col-lg-2"
-              data-aos="fade-up"
-              data-aos-delay="{{ $incrementDelay += 100 }}"
-            >
-              <a href="{{ route('categories-detail', $category->slug) }}" class="component-categories d-block">
-                <div class="categories-image">
-                  <img src="{{ Storage::url($category->photo) }}" alt="" class="w-100" />
-                </div>
-                <p class="categories-text">{{ $category->name }}</p>
-              </a>
-            </div>
-          @empty
-            <div
-              class="col-6 col-md-3 col-lg-2"
-              data-aos="fade-up"
-              data-aos-delay="{{ $incrementDelay += 100 }}"
-            >
-              <a href="#" class="component-categories d-block">
-                <div class="categories-image">
-                  <img src="/images/categories-baby.svg" alt="" class="w-100" />
-                </div>
-                <p class="categories-text">No categgories found</p>
-              </a>
-            </div>
-          @endforelse
+            @forelse ($categories as $category)
+              <div
+                class="col-6 col-md-3 col-lg-2"
+                data-aos="fade-up"
+                data-aos-delay="{{ $incrementDelay += 100 }}"
+              >
+                <a href="{{ route('categories-detail', $category->slug) }}" class="component-categories d-block">
+                  <div class="categories-image">
+                    <img src="{{ Storage::url($category->photo) }}" alt="" class="w-100" />
+                  </div>
+                  <p class="categories-text">{{ $category->name }}</p>
+                </a>
+              </div>
+            @empty
+              <div
+                class="col-6 col-md-3 col-lg-2"
+                data-aos="fade-up"
+                data-aos-delay="{{ $incrementDelay += 100 }}"
+              >
+                <a href="#" class="component-categories d-block">
+                  <div class="categories-image">
+                    <img src="/images/categories-baby.svg" alt="" class="w-100" />
+                  </div>
+                  <p class="categories-text">No categgories found</p>
+                </a>
+              </div>
+            @endforelse
         </div>
       </div>
     </section>
@@ -53,8 +53,8 @@
         </div>
       </div>
 
-      @forelse ($products as $product)
-        <div class="row">
+      <div class="row">
+        @forelse ($products as $product)
           <div class="col-6 col-md-4 col-lg-3" data-aos="fade-up" data-aos-delay="{{ $incrementDelay += 100 }}">
             <a href="" class="component-products d-block">
               <div class="products-thumbnail">
@@ -73,9 +73,7 @@
               <div class="products-price">{{ $product->price }}</div>
             </a>
           </div>
-        </div>
-      @empty
-        <div class="row">
+        @empty
           <div class="col-6 col-md-4 col-lg-3" data-aos="fade-up" data-aos-delay="{{ $incrementDelay += 100 }}">
             <a href="" class="component-products d-block">
               <div class="products-thumbnail">
@@ -89,8 +87,8 @@
               <div class="products-text">No product found</div>
             </a>
           </div>
-        </div>
-      @endforelse
+        @endforelse
+      </div>
       <div class="row">
         <div class="col-md-12">{{ $products->links() }}
         </div>
