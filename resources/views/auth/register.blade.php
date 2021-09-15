@@ -5,23 +5,202 @@
 @endsection
 
 @section('content')
+<div class="page-content page-auth" id="register">
+  <div class="section-auth-store" data-aos="fade-up">
+    <div class="container">
+      <div
+        class="
+          row
+          align-items-center
+          row-login
+          ml-3
+          justify-content-center
+        "
+      >
+        <div class="col-lg-5">
+          <h2>
+              Mulai kegiatan jual beli <br />
+              dengan cara terbaru
+          </h2>
+          <form method="POST" class="mt-3" action="{{ route('register') }}">
+              @csrf
+              <div class="form-group">
+                  <label for="name">Full Name</label>
+                  <input
+                      type="text"
+                      name="name"
+                      id="name"
+                      class="form-control w-75 @error('name') is-invalid @enderror"
+                      value="{{ old('name') }}"
+                      v-model="name"
+                      autofocus
+                      autocomplete="none"
+                      required
+                      autofocus
+                  />
+                  @error('name')
+                  <span class="invalid-feedback" role="alert">
+                      <strong>{{ $message }}</strong>
+                  </span>
+                  @enderror
+              </div>
+              <div class="form-group">
+                  <label for="email">Email Address</label>
+                  <input
+                      id="email"
+                      type="email"
+                      name="email"
+                      value="{{ old('email') }}"
+                      required
+                      autocomplete="email"
+                      class="form-control w-75 @error('email') is-invalid @enderror"
+                      v-model="email"
+                  />
+                  @error('email')
+                  <span class="invalid-feedback" role="alert">
+                      <strong>{{ $message }}</strong>
+                  </span>
+                  @enderror
+              </div>
+              <div class="form-group">
+                <label for="password">Password</label>
+                <input
+                    id="password"
+                    type="password"
+                    class="
+                        form-control w-75
+                        @error('password')
+                        is-invalid
+                        @enderror
+                    "
+                    name="password"
+                    required
+                    autocomplete="new-password"
+                />
+                @error('password')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+                @enderror
+              </div>
+              <div class="form-group">
+                  <label
+                      for="password-confirm"
+                      >{{ __("Confirm Password") }}</label
+                  >
+                  <input
+                      id="password-confirm"
+                      type="password"
+                      class="form-control @error('password_confirmation') is-invalid @enderror w-75"
+                      name="password_confirmation"
+                      required
+                      autocomplete="new-password"
+                  />
+                  @error('password_confirm')
+                  <span class="invalid-feedback" role="alert">
+                      <strong>{{ $message }}</strong>
+                  </span>
+                  @enderror
+              </div>
+              <div class="form-group">
+                  <label for="password">Toko</label>
+                  <p class="text-muted">
+                    Apakah anda juga ingin membuka toko?
+                  </p>
+                  <div class="custom-control custom-radio custom-control-inline">
+                    <input
+                        type="radio"
+                        name="is_store_open"
+                        id="openStoreTrue"
+                        class="custom-control-input"
+                        v-model="is_store_open"
+                        :value="true"
+                    />
+                    <label
+                      for="openStoreTrue"
+                      class="custom-control-label"
+                      >Iya, boleh</label
+                    >
+                  </div>
+                  <div
+                    class="
+                      custom-control
+                      custom-radio
+                      custom-control-inline
+                    "
+                  >
+                    <input
+                        type="radio"
+                        name="is_store_open"
+                        id="openStoreFalse"
+                        class="custom-control-input"
+                        v-model="is_store_open"
+                        :value="false"
+                    />
+                      <label
+                          for="openStoreFalse"
+                          class="custom-control-label"
+                          >Enggak, makasih</label
+                      >
+                  </div>
+                  <div class="form-group" v-if="is_store_open">
+                      <label for="store_name" class="mt-2">Nama Toko</label>
+                      <input
+                          type="text"
+                          v-model="store_name"
+                          name="store_name"
+                          id="store_name"
+                          class="form-control @error('store_name') is-invalid @enderror w-75"
+                          required
+                          autofocus
+                          autocomplete="none"
+                      />
+                      @error('store_name')
+                        <span class="invalid-feedback" role="alert">
+                          <strong>{{ $message }}</strong>
+                        </span>
+                      @enderror
+                  </div>
+              </div>
+              <div class="form-group" v-if="is_store_open">
+                  <label for="kategori">Kategori</label>
+                  <select name="categories_id" id="kategori" class="form-control w-75">
+                      @foreach ($categories as $category)
+                          <option name="categories_id" value="{{ $category->id }}">
+                            {{ $category->name }}
+                          </option>
+                      @endforeach
+                  </select>
+              </div>
+              <button
+                  type="submit"
+                  class="btn btn-success w-75 mt-3"
+              >
+                Register Now
+              </button>
+              <a href="{{ route('login') }}" class="btn btn-signup w-75 mt-3">
+                Back to login
+              </a>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 <div class="container" style="display: none">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">{{ __("Register") }}</div>
-
                 <div class="card-body">
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
-
                         <div class="form-group row">
                             <label
                                 for="name"
                                 class="col-md-4 col-form-label text-md-right"
                                 >{{ __("Name") }}</label
                             >
-
                             <div class="col-md-6">
                                 <input
                                     id="name"
@@ -46,7 +225,6 @@
                                 @enderror
                             </div>
                         </div>
-
                         <div class="form-group row">
                             <label
                                 for="email"
@@ -77,14 +255,12 @@
                                 @enderror
                             </div>
                         </div>
-
                         <div class="form-group row">
                             <label
                                 for="password"
                                 class="col-md-4 col-form-label text-md-right"
                                 >{{ __("Password") }}</label
                             >
-
                             <div class="col-md-6">
                                 <input
                                     id="password"
@@ -107,14 +283,12 @@
                                 @enderror
                             </div>
                         </div>
-
                         <div class="form-group row">
                             <label
                                 for="password-confirm"
                                 class="col-md-4 col-form-label text-md-right"
                                 >{{ __("Confirm Password") }}</label
                             >
-
                             <div class="col-md-6">
                                 <input
                                     id="password-confirm"
@@ -126,7 +300,6 @@
                                 />
                             </div>
                         </div>
-
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
@@ -134,137 +307,6 @@
                                 </button>
                             </div>
                         </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="page-content page-auth" id="register">
-    <div class="section-auth-store" data-aos="fade-up">
-        <div class="container">
-            <div
-                class="
-                    row
-                    align-items-center
-                    row-login
-                    ml-3
-                    justify-content-center
-                "
-            >
-                <div class="col-lg-5">
-                    <h2>
-                        Mulai kegiatan jual beli <br />
-                        dengan cara terbaru
-                    </h2>
-                    <form action="" class="mt-3">
-                        <div class="form-group">
-                            <label for="name">Full Name</label>
-                            <input
-                                type="text"
-                                name="name"
-                                id="name"
-                                class="form-control w-75 is-valid"
-                                v-model="name"
-                                autofocus
-                                autocomplete="none"
-                            />
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email Address</label>
-                            <input
-                                type="email"
-                                name="email"
-                                id="email"
-                                class="form-control w-75 is-invalid"
-                                v-model="email"
-                            />
-                        </div>
-                        <div class="form-group">
-                            <label for="password">Password</label>
-                            <input
-                                type="password"
-                                name="password"
-                                class="form-control w-75"
-                            />
-                        </div>
-                        <div class="form-group">
-                            <label for="password">Toko</label>
-                            <p class="text-muted">
-                                Apakah anda juga ingin membuka toko?
-                            </p>
-                            <div
-                                class="
-                                    custom-control
-                                    custom-radio
-                                    custom-control-inline
-                                "
-                            >
-                                <input
-                                    type="radio"
-                                    name="isStoreOpen"
-                                    id="openStoreTrue"
-                                    class="custom-control-input"
-                                    v-model="isStoreOpen"
-                                    :value="true"
-                                />
-                                <label
-                                    for="openStoreTrue"
-                                    class="custom-control-label"
-                                    >Iya, boleh</label
-                                >
-                            </div>
-                            <div
-                                class="
-                                    custom-control
-                                    custom-radio
-                                    custom-control-inline
-                                "
-                            >
-                                <input
-                                    type="radio"
-                                    name="isStoreOpen"
-                                    id="openStoreFalse"
-                                    class="custom-control-input"
-                                    v-model="isStoreOpen"
-                                    :value="false"
-                                />
-                                <label
-                                    for="openStoreFalse"
-                                    class="custom-control-label"
-                                    >Enggak, makasih</label
-                                >
-                            </div>
-                            <div class="form-group" v-if="isStoreOpen">
-                                <label for="toko" class="mt-2">Nama Toko</label>
-                                <input
-                                    type="text"
-                                    name="toko"
-                                    id="toko"
-                                    class="form-control w-75 is-valid"
-                                    v-model="toko"
-                                    autofocus
-                                    autocomplete="none"
-                                />
-                            </div>
-                        </div>
-                        <div class="form-group" v-if="isStoreOpen">
-                            <label for="kategori">Kategori</label>
-                            <select name="" disabled class="form-control w-75">
-                                <option name="kategori" value="Peralatan Rumah">
-                                    Pilih Kategori
-                                </option>
-                            </select>
-                        </div>
-                        <a
-                            href="/dashboard.html"
-                            class="btn btn-success w-75 mt-3"
-                        >
-                            Register Now
-                        </a>
-                        <a href="{{ route('login') }}" class="btn btn-signup w-75 mt-3">
-                            Back to login
-                        </a>
                     </form>
                 </div>
             </div>
@@ -282,21 +324,21 @@
             el: "#register",
             mounted() {
                 AOS.init();
-                this.$toasted.error(
-                    "Maaf email anda sudah terdaftar, silahkan coba email lain",
-                    {
-                        position: "top-center",
-                        className: "rounded",
-                        duration: 2000,
-                    }
-                );
+                // this.$toasted.error(
+                //     "Maaf email anda sudah terdaftar, silahkan coba email lain",
+                //     {
+                //         position: "top-center",
+                //         className: "rounded",
+                //         duration: 2000,
+                //     }
+                // );
             },
             data: {
                 name: "Yoga Baskoro",
                 email: "yogasab40@gmail.com",
-                toko: "PT Mencari Cinta Sejati",
+                store_name: "PT Mencari Cinta Sejati",
                 password: "",
-                isStoreOpen: true,
+                is_store_open: true,
             },
         });
     </script>
