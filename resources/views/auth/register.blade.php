@@ -50,10 +50,12 @@
                       id="email"
                       type="email"
                       name="email"
+                      @change="checkForEmailAvailability()"
+                      class="form-control w-75 @error('email') is-invalid @enderror"
+                      :class="{ 'is-invalid' : this.email_unavailable }"
                       value="{{ old('email') }}"
                       required
                       autocomplete="email"
-                      class="form-control w-75 @error('email') is-invalid @enderror"
                       v-model="email"
                   />
                   @error('email')
@@ -85,8 +87,8 @@
               </div>
               <div class="form-group">
                   <label
-                      for="password-confirm"
-                      >{{ __("Confirm Password") }}</label
+                    for="password-confirm"
+                    >{{ __("Confirm Password") }}</label
                   >
                   <input
                       id="password-confirm"
@@ -109,12 +111,12 @@
                   </p>
                   <div class="custom-control custom-radio custom-control-inline">
                     <input
-                        type="radio"
-                        name="is_store_open"
-                        id="openStoreTrue"
-                        class="custom-control-input"
-                        v-model="is_store_open"
-                        :value="true"
+                      type="radio"
+                      name="is_store_open"
+                      id="openStoreTrue"
+                      class="custom-control-input"
+                      v-model="is_store_open"
+                      :value="true"
                     />
                     <label
                       for="openStoreTrue"
@@ -173,8 +175,9 @@
                   </select>
               </div>
               <button
-                  type="submit"
-                  class="btn btn-success w-75 mt-3"
+                type="submit"
+                class="btn btn-success w-75 mt-3"
+                :disabled="this.email_unavailable"
               >
                 Register Now
               </button>
@@ -318,27 +321,54 @@
 @push('addon-script')
     <script src="/vendor/vue/vue.js"></script>
     <script src="https://unpkg.com/vue-toasted"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script>
         Vue.use(Toasted);
         var register = new Vue({
             el: "#register",
             mounted() {
-                AOS.init();
-                // this.$toasted.error(
-                //     "Maaf email anda sudah terdaftar, silahkan coba email lain",
-                //     {
-                //         position: "top-center",
-                //         className: "rounded",
-                //         duration: 2000,
-                //     }
-                // );
+              AOS.init();
             },
-            data: {
+            methods: {
+              checkForEmailAvailability(){
+                var self = this;
+                axios.get('{{ route('api-register-check') }}', {
+                  params: {
+                    email: this.email
+                  }
+                }).then(function(response){
+                  if(response.data == 'Available'){
+                    self.$toasted.success(
+                      "Email anda tersedia, silahkan lanjutkan registrasi",
+                      {
+                        position: "top-center",
+                        className: "rounded",
+                        duration: 2000,
+                      }
+                    );
+                    self.email_unavailable = false;
+                  } else {
+                    self.$toasted.error(
+                      "Maaf email anda sudah terdaftar, silahkan coba email lain",
+                      {
+                        position: "top-center",
+                        className: "rounded",
+                        duration: 2000,
+                      }
+                    );
+                    self.email_unavailable = true;
+                  }
+                });
+              }
+            },
+            data() {
+                return {
                 name: "Yoga Baskoro",
                 email: "yogasab40@gmail.com",
                 store_name: "PT Mencari Cinta Sejati",
-                password: "",
                 is_store_open: true,
+                email_unavailable: false
+              }
             },
         });
     </script>
