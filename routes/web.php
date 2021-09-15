@@ -33,6 +33,7 @@ Route::get('/register/success', [RegisterController::class, 'registerSuccess'])-
 Route::get('/detail/{slug}', [DetailController::class, 'index'])->name('detail');
 Route::post('/detail/{slug}', [DetailController::class, 'add'])->name('detail-add-cart');
 Route::get('/cart', [CartController::class, 'index'])->name('cart');
+Route::delete('/cart/{id}', [CartController::class, 'delete'])->name('cart-delete');
 
 // Dashboard 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
