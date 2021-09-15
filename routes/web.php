@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DashboardProductController;
 use App\Http\Controllers\DashboardSettingController;
@@ -34,6 +35,9 @@ Route::get('/detail/{slug}', [DetailController::class, 'index'])->name('detail')
 Route::post('/detail/{slug}', [DetailController::class, 'add'])->name('detail-add-cart');
 Route::get('/cart', [CartController::class, 'index'])->name('cart');
 Route::delete('/cart/{id}', [CartController::class, 'delete'])->name('cart-delete');
+
+// Checkout Controller 
+Route::post('/checkout', [CheckoutController::class, 'checkout'])->name('checkout');
 
 // Dashboard 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
