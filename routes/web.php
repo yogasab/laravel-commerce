@@ -31,6 +31,7 @@ Route::get('/categories/{slug}', [CategoryController::class, 'detail'])->name('c
 Route::get('/success', [CartController::class, 'success'])->name('success');
 Route::get('/register/success', [RegisterController::class, 'registerSuccess'])->name('register-success');
 Route::get('/detail/{slug}', [DetailController::class, 'index'])->name('detail');
+Route::post('/detail/{slug}', [DetailController::class, 'add'])->name('detail-add-cart');
 Route::get('/cart', [CartController::class, 'index'])->name('cart');
 
 // Dashboard 

@@ -76,10 +76,17 @@
                     </div>
                     <div class="col-lg-2" data-aos="zoom-in">
                         @auth
-                        <form action="#" method="post">
+                        <form action="{{ route('detail-add-cart', $product->id) }}" method="post">
+                            @csrf
+                            <button type="submit" class="btn btn-success px-4 text-white btn-block mb-3">
+                                Add to cart
+                            </button>
+                        </form>
+                        @else
+                        <form action="{{ route('login') }}" method="get">
                             @csrf
                             <button
-                                href="/cart.html"
+                                type="submit"
                                 class="
                                     btn btn-success
                                     px-4
@@ -88,22 +95,9 @@
                                     mb-3
                                 "
                             >
-                                Add to cart
+                                Login to add cart
                             </button>
                         </form>
-                        @else
-                        <a
-                            href="{{ route('login') }}"
-                            class="
-                                btn btn-success
-                                px-4
-                                text-white
-                                btn-block
-                                mb-3
-                            "
-                        >
-                            Login to add cart
-                        </a>
                         @endauth
                     </div>
                 </div>
