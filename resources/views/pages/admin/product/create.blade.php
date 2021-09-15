@@ -1,5 +1,4 @@
-@extends('layouts.admin') 
-@section('title') Admin Dashboard @endsection
+@extends('layouts.admin') @section('title') Admin Dashboard @endsection
 @section('content')
 <div class="page-dashboard">
     <div class="d-flex" id="wrapper" data-aos="fade-right">
@@ -20,8 +19,11 @@
                 >
                     Dashboard
                 </a>
-                <a href="{{ route('product.index') }}" class="list-group-item list-group-item-action {{ (request()->is('admin/product*')) ? 'active' : '' }}">
-                  Products
+                <a
+                    href="{{ route('product.index') }}"
+                    class="list-group-item list-group-item-action {{ (request()->is('admin/product*')) ? 'active' : '' }}"
+                >
+                    Products
                 </a>
                 <a
                     href="{{ route('category.index') }}"
@@ -29,10 +31,19 @@
                 >
                     Category
                 </a>
+                <a
+                    href="{{ route('product-gallery.index') }}"
+                    class="list-group-item list-group-item-action"
+                >
+                    Gallery
+                </a>
                 <a href="#" class="list-group-item list-group-item-action">
                     Transactions
                 </a>
-                <a href="{{ route('user.index') }}" class="list-group-item list-group-item-action">
+                <a
+                    href="{{ route('user.index') }}"
+                    class="list-group-item list-group-item-action"
+                >
                     Users
                 </a>
                 <a href="" class="list-group-item list-group-item-action">
@@ -89,67 +100,123 @@
                         <div class="row">
                             <div class="col-md-12">
                                 @if ($errors->any())
-                                    <div class="alert alert-danger">
-                                        <ul>
-                                            @foreach ($errors->all() as $error)
-                                                <li>{{ $error }}</li>
-                                            @endforeach
-                                        </ul>
-                                    </div>
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
                                 @endif
                                 <div class="card">
-                                  <div class="card-body">
-                                    <form action="{{ route('product.store') }}" method="POST" enctype="multipart/form-data">
-                                      @csrf
-                                      <div class="row">
-                                        <div class="col-md-6">
-                                          <div class="form-group">
-                                            <label for="name">Name</label>
-                                            <input type="text" name="name" class="form-control" required>
-                                          </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                          <div class="form-group">
-                                            <label for="users_id">Pemilik</label>
-                                            <select name="users_id" id="" required class="form-control">
-                                              @foreach ($users as $user)
-                                                <option value="{{ $user->id }}">{{ $user->name }}</option>
-                                              @endforeach
-                                            </select>
-                                          </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                          <div class="form-group">
-                                            <label for="categories_id">Kategori</label>
-                                            <select name="categories_id" id="" required class="form-control">
-                                              @foreach ($categories as $category)
-                                                <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                              @endforeach
-                                            </select>
-                                          </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                          <div class="form-group">
-                                            <label for="price">Harga</label>
-                                            <input type="number" name="price" class="form-control" id="" required>
-                                          </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                          <div class="form-group">
-                                            <label for="descriptions">Deskripsi</label>
-                                            <textarea name="descriptions" id="descriptions"></textarea>
-                                          </div>
-                                        </div>
-                                      </div>
-                                      <div class="row">
-                                        <div class="col text-right">
-                                          <button type="submit" class="btn btn-success">
-                                            Save
-                                          </button>
-                                        </div>
-                                      </div>
-                                    </form>
-                                  </div>
+                                    <div class="card-body">
+                                        <form
+                                            action="{{
+                                                route('product.store')
+                                            }}"
+                                            method="POST"
+                                            enctype="multipart/form-data"
+                                        >
+                                            @csrf
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="name"
+                                                            >Nama Produk</label
+                                                        >
+                                                        <input
+                                                            type="text"
+                                                            name="name"
+                                                            class="form-control"
+                                                            required
+                                                        />
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="users_id"
+                                                            >Pemilik</label
+                                                        >
+                                                        <select
+                                                            name="users_id"
+                                                            id=""
+                                                            required
+                                                            class="form-control"
+                                                        >
+                                                            @foreach ($users as
+                                                            $user)
+                                                            <option
+                                                                value="{{ $user->id }}"
+                                                            >
+                                                                {{ $user->name }}
+                                                            </option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label
+                                                            for="categories_id"
+                                                            >Kategori</label
+                                                        >
+                                                        <select
+                                                            name="categories_id"
+                                                            id=""
+                                                            required
+                                                            class="form-control"
+                                                        >
+                                                            @foreach
+                                                            ($categories as
+                                                            $category)
+                                                            <option
+                                                                value="{{ $category->id }}"
+                                                            >
+                                                                {{ $category->name }}
+                                                            </option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="price"
+                                                            >Harga</label
+                                                        >
+                                                        <input
+                                                            type="number"
+                                                            name="price"
+                                                            class="form-control"
+                                                            id=""
+                                                            required
+                                                        />
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label
+                                                            for="descriptions"
+                                                            >Deskripsi</label
+                                                        >
+                                                        <textarea
+                                                            name="descriptions"
+                                                            id="descriptions"
+                                                        ></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col text-right">
+                                                    <button
+                                                        type="submit"
+                                                        class="btn btn-success"
+                                                    >
+                                                        Save
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -159,18 +226,15 @@
         </div>
     </div>
 </div>
-@endsection 
-
-@push('addon-script')
-    <script>
-        $("#menu-toggle").click(function (e) {
-            e.preventDefault();
-            $("#wrapper").toggleClass("toggled");
-        });
-    </script>
-    <script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
-    <script>
-        CKEDITOR.replace("descriptions");
-    </script>
+@endsection @push('addon-script')
+<script>
+    $("#menu-toggle").click(function (e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+</script>
+<script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
+<script>
+    CKEDITOR.replace("descriptions");
+</script>
 @endpush
-

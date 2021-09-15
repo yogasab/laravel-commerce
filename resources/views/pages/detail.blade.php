@@ -1,10 +1,6 @@
-@extends('layouts.app') 
-
-@section('title') 
-    Details Product 
-@endsection
-
-@section('content')
+@extends('layouts.app') @section('title')
+{{ $product->name }}
+@endsection @section('content')
 <!-- Page Content -->
 <div class="page-content page-details">
     <!-- Breadcrumb -->
@@ -31,7 +27,7 @@
         </div>
     </section>
     <!-- Gallery -->
-    <section class="store-gallery" id="gallery">
+    <section class="store-gallery mb-3" id="gallery">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8" data-aos="zoom-in">
@@ -74,13 +70,30 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-8">
-                        <h1>The Cozy Couch</h1>
-                        <div class="owner">Yoga Baskoro</div>
-                        <div class="price">Rp 2.000.000</div>
+                        <h1>{{ $product->name }}</h1>
+                        <div class="owner">{{ $product->user->store_name }}</div>
+                        <div class="price">Rp {{ number_format($product->price) }}</div>
                     </div>
                     <div class="col-lg-2" data-aos="zoom-in">
+                        @auth
+                        <form action="#" method="post">
+                            @csrf
+                            <button
+                                href="/cart.html"
+                                class="
+                                    btn btn-success
+                                    px-4
+                                    text-white
+                                    btn-block
+                                    mb-3
+                                "
+                            >
+                                Add to cart
+                            </button>
+                        </form>
+                        @else
                         <a
-                            href="/cart.html"
+                            href="{{ route('login') }}"
                             class="
                                 btn btn-success
                                 px-4
@@ -89,8 +102,9 @@
                                 mb-3
                             "
                         >
-                            Add to cart
+                            Login to add cart
                         </a>
+                        @endauth
                     </div>
                 </div>
             </div>
@@ -99,27 +113,8 @@
         <section class="store-description">
             <div class="container">
                 <div class="row">
-                    <div class="col-12 col-lg-8">
-                        <p>
-                            Lorem ipsum dolor sit amet consectetur adipisicing
-                            elit. Veniam, explicabo eligendi quibusdam labore
-                            quo consequuntur asperiores, veritatis pariatur in
-                            maiores rem! Incidunt, placeat nostrum soluta velit
-                            a inventore autem nobis.
-                        </p>
-                        <p>
-                            Lorem ipsum, dolor sit amet consectetur adipisicing
-                            elit. Illo ab, autem repudiandae, soluta assumenda
-                            totam velit natus, magni nobis quo error suscipit
-                            cupiditate recusandae consequatur eaque porro
-                            consequuntur rerum eos excepturi ipsum? Corrupti
-                            fugiat odit temporibus molestias, nihil excepturi
-                            omnis obcaecati quod vero. Molestias eos modi id
-                            vero ullam rem iste libero soluta, ut omnis enim
-                            voluptatum quis sequi quaerat doloribus recusandae
-                            dolorum obcaecati nisi maxime quibusdam voluptas
-                            dignissimos quam.
-                        </p>
+                    <div class="col-12 col-lg-8 text-justify">
+                        {!! $product->descriptions !!}
                     </div>
                 </div>
             </div>
@@ -195,24 +190,14 @@
             AOS.init();
         },
         data: {
-            activePhoto: 1,
+            activePhoto: 0,
             photos: [
-                {
-                    id: 1,
-                    url: "/images/product-details-1.jpg",
-                },
-                {
-                    id: 2,
-                    url: "/images/product-details-2.jpg",
-                },
-                {
-                    id: 3,
-                    url: "/images/product-details-3.jpg",
-                },
-                {
-                    id: 4,
-                    url: "/images/product-details-4.jpg",
-                },
+                @foreach ($product->galleries as $gallery)
+                    {
+                        id: {{ $gallery->id }},
+                        url: "{{ Storage::url($gallery->photos) }}",
+                    },              
+                @endforeach
             ],
         },
         methods: {

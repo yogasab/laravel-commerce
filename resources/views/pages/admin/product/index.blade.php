@@ -1,5 +1,4 @@
-@extends('layouts.admin') 
-@section('title') Products Dashboard @endsection
+@extends('layouts.admin') @section('title') Products Dashboard @endsection
 @section('content')
 <div class="page-dashboard">
     <div class="d-flex" id="wrapper" data-aos="fade-right">
@@ -20,7 +19,10 @@
                 >
                     Dashboard
                 </a>
-                <a href="{{ route('product.index') }}" class="list-group-item list-group-item-action {{ (request()->is('admin/product*')) ? 'active' : '' }}">
+                <a
+                    href="{{ route('product.index') }}"
+                    class="list-group-item list-group-item-action {{ (request()->is('admin/product*')) ? 'active' : '' }}"
+                >
                     Products
                 </a>
                 <a
@@ -32,7 +34,16 @@
                 <a href="#" class="list-group-item list-group-item-action">
                     Transactions
                 </a>
-                <a href="{{ route('user.index') }}" class="list-group-item list-group-item-action ">
+                <a
+                    href="{{ route('product-gallery.index') }}"
+                    class="list-group-item list-group-item-action"
+                >
+                    Gallery
+                </a>
+                <a
+                    href="{{ route('user.index') }}"
+                    class="list-group-item list-group-item-action"
+                >
                     Users
                 </a>
                 <a href="" class="list-group-item list-group-item-action">
@@ -90,11 +101,23 @@
                             <div class="col-md-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <a href="{{ route('product.create') }}" class="btn btn-outline-info mb-4">
+                                        <a
+                                            href="{{ route('product.create') }}"
+                                            class="btn btn-outline-info mb-4"
+                                        >
                                             + Tambah Produk
                                         </a>
                                         <div class="table-responsive">
-                                            <table class="table table-hover table-striped scroll-horizontal-vertical w-100" id="crudTable">
+                                            <table
+                                                class="
+                                                    table
+                                                    table-hover
+                                                    table-striped
+                                                    scroll-horizontal-vertical
+                                                    w-100
+                                                "
+                                                id="crudTable"
+                                            >
                                                 <thead>
                                                     <tr>
                                                         <th>ID</th>
@@ -105,8 +128,7 @@
                                                         <th>Aksi</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody>
-                                                </tbody>
+                                                <tbody></tbody>
                                             </table>
                                         </div>
                                     </div>
@@ -128,26 +150,26 @@
 </script>
 <script>
     var datatable = $("#crudTable").DataTable({
-    processing: true,
-    serverSide: true,
-    ordering: true,
-    ajax: {
-        url: '{!! url()->current() !!}',
-    },
-    columns: [
-        {data: 'id', name: 'id'},
-        {data: 'name', name: 'name'},
-        {data: 'user.name', name: 'user.name'},
-        {data: 'category.name', name: 'category.name'},
-        {data: 'price', name: 'price'},
-        {
-            data: 'action',
-            name: 'action',
-            orderable: false,
-            searcable: false,
-            width: '15%'
+        processing: true,
+        serverSide: true,
+        ordering: true,
+        ajax: {
+            url: "{!! url()->current() !!}",
         },
-    ]
-    })
+        columns: [
+            { data: "id", name: "id" },
+            { data: "name", name: "name" },
+            { data: "user.name", name: "user.name" },
+            { data: "category.name", name: "category.name" },
+            { data: "price", name: "price" },
+            {
+                data: "action",
+                name: "action",
+                orderable: false,
+                searcable: false,
+                width: "15%",
+            },
+        ],
+    });
 </script>
 @endpush
