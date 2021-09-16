@@ -18,40 +18,40 @@ Dashboard Products Page
             </div>
             <div class="list-group list-group-flush">
                 <a
-                    href="/dashboard.html"
-                    class="list-group-item list-group-item-action"
+                    href="{{ route('dashboard') }}"
+                    class="
+                        list-group-item list-group-item-action
+                        {{ (request()->is('dashboard*')) ? 'active' : '' }}
+                    "
                 >
                     Dashboard
                 </a>
                 <a
-                    href=""
-                    class="
-                        list-group-item list-group-item-action
-                        active
-                    "
+                    href="{{ route('dashboard-product') }}"
+                    class="list-group-item list-group-item-action {{ (request()->is('dashboard/product*')) ? 'active' : '' }}"
                 >
                     My Products
                 </a>
                 <a
-                    href="/dashboard-transactions.html"
-                    class="list-group-item list-group-item-action"
+                    href="{{ route('dashboard-transactions') }}"
+                    class="list-group-item list-group-item-action {{ (request()->is('dashboard/transactions*')) ? 'active' : '' }}"
                 >
                     Transactions
                 </a>
                 <a
-                    href="/dashboard-settings.html"
+                    href="{{ route('dashboard-store') }}"
                     class="list-group-item list-group-item-action"
                 >
                     Store Settings
                 </a>
                 <a
-                    href="/dashboard-account.html"
+                    href="{{ route('dashboard-settings') }}"
                     class="list-group-item list-group-item-action"
                 >
                     My Account
                 </a>
                 <a
-                    href=""
+                    href="#"
                     class="list-group-item list-group-item-action"
                 >
                     Logout

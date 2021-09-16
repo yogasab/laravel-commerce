@@ -66,12 +66,7 @@
                       >Settings</a
                     >
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
-                      {{ __('Logout') }}
-                    </a>
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                        @csrf]
-                    </form>
+                    
                   </div>
                 </li>
                 <li class="nav-item">
@@ -96,9 +91,17 @@
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="#" class="nav-link d-inline-block">
-                    Cart
-                  </a>
+                  @php $carts = \App\Models\Cart::where('users_id', Auth::user()->id)->count(); @endphp
+                  @if ($carts > 0)
+                    <a href="{{ route('cart') }}" class="nav-link d-inline-block mt-2">
+                      <img src="/images/icon-cart-filled.svg" alt="" />
+                      <span><div class="card-badge">{{ $carts }}</div></span> 
+                    </a>
+                  @else
+                    <a href="{{ route('cart') }}" class="nav-link d-inline-block mt-2">
+                      <img src="/images/icon-cart-empty.svg" alt="" />
+                    </a>
+                  @endif
                 </li>
               </ul>
             @endauth
