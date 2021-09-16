@@ -5,8 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Cart;
 use App\Models\Transaction;
 use App\Models\TranscationDetail;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Midtrans\Config;
+use Midtrans\Snap;
 
 class CheckoutController extends Controller
 {
@@ -42,6 +45,36 @@ class CheckoutController extends Controller
                 'code' => $trd
             ]);
         }
-        return dd($transaction);
+
+        // Midtrans Config
+        Config::$serverKey = config('services.midtrans.serverKey');
+        Config::$isProduction = config('services.midtrans.isProduction');
+        Config::$isSanitized = config('services.midtrans.isSanitized');;
+        Config::$is3ds = config('services.midtrans.is3ds');;
+
+        // Array to send to midtrans
+        $midtrans = [
+            'transaction_details' => [
+                'order_id' => $code,
+                'gross_amount' => (int) $request->total_price
+            ],
+            'customer_details' => [
+                'first_name' => Auth::user()->name,
+                'email' => Auth::user()->email
+            ],
+            'enabled_payments' => [
+                'gopay', 'shopeepay', 'indomaret',
+                'bank_transfer'
+            ],
+            'vtweb' => []
+        ];
+
+        try {
+            // Get Snap Payment Page URL
+            $paymentUrl = Snap::createTransaction($midtrans)->redirect_url;
+            return redirect($paymentUrl);
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
     }
 }
