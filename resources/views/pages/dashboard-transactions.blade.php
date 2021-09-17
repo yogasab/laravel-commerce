@@ -25,9 +25,13 @@
         <a href="{{ route('dashboard-settings') }}" class="list-group-item list-group-item-action">
           My Account
         </a>
-        <a href="#" class="list-group-item list-group-item-action">
+        <a class="list-group-item list-group-item-action" href="{{ route('logout') }}"
+          onclick="event.preventDefault();document.getElementById('logout-form').submit();">
           Logout
         </a>
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+          @csrf
+        </form>
       </div>
     </div>
 

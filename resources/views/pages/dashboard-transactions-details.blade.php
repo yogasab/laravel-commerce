@@ -52,13 +52,19 @@
                                             mr-2
                                             profile-picture
                                         " />
-                  Hi, Anjani
+                  Hi, {{ Auth::user()->name }}
                 </a>
                 <div class="dropdown-menu">
                   <a href="#" class="dropdown-item">Dashboard</a>
                   <a href="#" class="dropdown-item">Settings</a>
                   <div class="dropdown-divider"></div>
-                  <a href="#" class="dropdown-item">Logout</a>
+                  <a class="list-group-item list-group-item-action" href="{{ route('logout') }}"
+                    onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                    {{ __('Logout') }}
+                  </a>
+                  <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                    @csrf
+                  </form>
                 </div>
               </li>
               <li class="nav-item">
@@ -71,7 +77,8 @@
             <!-- Smartphone Menu -->
             <ul class="navbar-nav d-block d-lg-none">
               <li class="nav-item">
-                <a href="#" class="nav-link"> Hi, Anjani </a>
+                <a href="#" class="nav-link">Hi, {{ Auth::user()->name }}
+                </a>
               </li>
               <li class="nav-item">
                 <a href="#" class="nav-link d-inline-block">Cart</a>

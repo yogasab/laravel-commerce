@@ -24,9 +24,13 @@
           class="list-group-item list-group-item-action {{ (request()->is('dashboard/account*')) ? 'active' : '' }}">
           My Account
         </a>
-        <a href="#" class="list-group-item list-group-item-action">
+        <a class="list-group-item list-group-item-action" href="{{ route('logout') }}"
+          onclick="event.preventDefault();document.getElementById('logout-form').submit();">
           Logout
         </a>
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+          @csrf
+        </form>
       </div>
     </div>
 
@@ -52,7 +56,13 @@
                   <a href="{{ route('dashboard') }}" class="dropdown-item">Dashboard</a>
                   <a href="{{ route('dashboard-store') }}" class="dropdown-item">Settings</a>
                   <div class="dropdown-divider"></div>
-                  <a href="" class="dropdown-item">Logout</a>
+                  <a class="list-group-item list-group-item-action" href="{{ route('logout') }}"
+                    onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                    Logout
+                  </a>
+                  <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                    @csrf
+                  </form>
                 </div>
               </li>
               <li class="nav-item">

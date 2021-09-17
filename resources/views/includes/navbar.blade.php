@@ -67,7 +67,7 @@
                     >
                     <div class="dropdown-divider"></div>
                     <a class="list-group-item list-group-item-action" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
-                      {{ __('Logout') }}
+                      Logout
                     </a>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                       @csrf
