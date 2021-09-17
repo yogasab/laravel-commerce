@@ -55,20 +55,12 @@ class DashboardProductController extends Controller
     return redirect()->route('dashboard-product');
   }
 
-  // public function uploadGallery(Request $request)
-  // {
-  //   $dataPhoto = $request->all();
-  //   $dataPhoto['photos'] = $request->file('photo')->store('assets/product', 'public');
-  //   ProductGallery::create($dataPhoto);
-  //   return redirect()->route('dashboard-product-details', $request->id);
-  // }
-
-  // public function deleteGallery(Request $request, $id)
-  // {
-  //   $dataPhoto = Product::findOrFail($id);
-  //   $dataPhoto->delete();
-  //   return redirect()->route('dashboard-product-details', $dataPhoto->products_id);
-  // }
+  public function deleteGallery(Request $request, $id)
+  {
+    $dataPhoto = ProductGallery::findOrFail($id);
+    $dataPhoto->delete();
+    return redirect()->route('dashboard-product-details', $dataPhoto->products_id);
+  }
 
   public function update(ProductRequest $request, $id)
   {
@@ -77,5 +69,13 @@ class DashboardProductController extends Controller
     $data['slug'] = Str::slug($request->name);
     $currentProduct->update($data);
     return redirect()->route('dashboard-product');
+  }
+
+  public function uploadGallery(Request $request)
+  {
+    $data = $request->all();
+    $data['photos'] = $request->file('photos')->store('assets/product', 'public');
+    ProductGallery::create($data);
+    return redirect()->route('dashboard-product-details', $request->products_id);
   }
 }
