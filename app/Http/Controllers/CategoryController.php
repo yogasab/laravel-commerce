@@ -13,8 +13,8 @@ class CategoryController extends Controller
         $categories = Category::all();
         $products = Product::with(['galleries'])->paginate(32);
         $data = [
-            'categories' => $categories,
-            'products' => $products
+          'categories' => $categories,
+          'products' => $products
         ];
         return view('pages.category', $data);
     }

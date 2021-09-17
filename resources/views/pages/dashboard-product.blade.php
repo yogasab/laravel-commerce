@@ -13,10 +13,10 @@
             </div>
             <div class="list-group list-group-flush">
                 <a
-                    href="{{ route('dashboard') }}"
-                    class="list-group-item list-group-item-action"
+                  href="{{ route('dashboard') }}"
+                  class="list-group-item list-group-item-action"
                 >
-                    Dashboard
+                  Dashboard
                 </a>
                 <a
                     href="{{ route('dashboard-product') }}"
@@ -25,8 +25,8 @@
                     My Products
                 </a>
                 <a
-                    href="{{ route('dashboard-transactions') }}"
-                    class="list-group-item list-group-item-action {{ (request()->is('dashboard/transactions*')) ? 'active' : '' }}"
+                  href="{{ route('dashboard-transactions') }}"
+                  class="list-group-item list-group-item-action {{ (request()->is('dashboard/transactions*')) ? 'active' : '' }}"
                 >
                     Transactions
                 </a>
@@ -42,8 +42,11 @@
                 >
                     My Account
                 </a>
-                <a href="#" class="list-group-item list-group-item-action">
-                    Logout
+                <a
+                  href="{{ route('home') }}"
+                  class="list-group-item list-group-item-action"
+                >
+                  Logout
                 </a>
             </div>
         </div>
@@ -92,10 +95,12 @@
                                             profile-picture
                                         "
                                     />
-                                    Hi, Anjani
+                                    Hi, {{ Auth::user()->name }}
                                 </a>
                                 <div class="dropdown-menu">
-                                    <a href="#" class="dropdown-item"
+                                    <a
+                                        href="{{ route('dashboard') }}"
+                                        class="dropdown-item"
                                         >Dashboard</a
                                     >
                                     <a href="#" class="dropdown-item"
@@ -124,9 +129,9 @@
                                 <a href="#" class="nav-link"> Hi, Anjani </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link d-inline-block"
-                                    >Cart</a
-                                >
+                              <a href="#" class="nav-link d-inline-block"
+                                >Cart</a
+                              >
                             </li>
                         </ul>
                     </div>
@@ -148,112 +153,46 @@
                         <div class="row">
                             <div class="col-12">
                                 <a
-                                    href="/dashboard-create-products.html"
+                                    href="{{
+                                        route('dashboard-product-create')
+                                    }}"
                                     class="ml-2 btn btn-success"
-                                    >Add New Product</a
-                                >
+                                    >Add New Product
+                                </a>
                             </div>
                         </div>
                         <div class="row mt-4">
                             <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                                @forelse ($products as $product)
                                 <a
-                                    href="/dashboard-details-products.html"
+                                    href="{{ route('dashboard-product-details', $product->id) }}"
                                     class="card card-dashboard-product d-block"
                                 >
                                     <div class="card-body">
                                         <img
-                                            src="/images/product-card-1.png"
+                                            src="{{ Storage::url($product->galleries->first()->photos) ?? '' }}"
                                             alt=""
                                             class="w-100 mb-2"
                                         />
                                         <div class="product-title">
-                                            Cup Holder
+                                            {{ $product->name }}
                                         </div>
                                         <div class="product-category">
-                                            Home Appliance
+                                            {{ $product->category->name }}
                                         </div>
                                     </div>
                                 </a>
-                            </div>
-                            <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                                <a
-                                    href="/dashboard-details-products.html"
-                                    class="card card-dashboard-product d-block"
-                                >
-                                    <div class="card-body">
-                                        <img
-                                            src="/images/product-card-1.png"
-                                            alt=""
-                                            class="w-100 mb-2"
-                                        />
-                                        <div class="product-title">
-                                            Cup Holder
-                                        </div>
-                                        <div class="product-category">
-                                            Home Appliance
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                                <a
-                                    href="/dashboard-details-products.html"
-                                    class="card card-dashboard-product d-block"
-                                >
-                                    <div class="card-body">
-                                        <img
-                                            src="/images/product-card-1.png"
-                                            alt=""
-                                            class="w-100 mb-2"
-                                        />
-                                        <div class="product-title">
-                                            Cup Holder
-                                        </div>
-                                        <div class="product-category">
-                                            Home Appliance
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                                <a
-                                    href="/dashboard-details-products.html"
-                                    class="card card-dashboard-product d-block"
-                                >
-                                    <div class="card-body">
-                                        <img
-                                            src="/images/product-card-1.png"
-                                            alt=""
-                                            class="w-100 mb-2"
-                                        />
-                                        <div class="product-title">
-                                            Cup Holder
-                                        </div>
-                                        <div class="product-category">
-                                            Home Appliance
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                                <a
-                                    href="/dashboard-details-products.html"
-                                    class="card card-dashboard-product d-block"
-                                >
-                                    <div class="card-body">
-                                        <img
-                                            src="/images/product-card-1.png"
-                                            alt=""
-                                            class="w-100 mb-2"
-                                        />
-                                        <div class="product-title">
-                                            Cup Holder
-                                        </div>
-                                        <div class="product-category">
-                                            Home Appliance
-                                        </div>
-                                    </div>
-                                </a>
+                                @empty
+                                <h1>
+                                    <a
+                                        href="{{
+                                            route('dashboard-product-create')
+                                        }}"
+                                        >Jual</a
+                                    >
+                                    dulu dongs
+                                </h1>
+                                @endforelse
                             </div>
                         </div>
                     </div>

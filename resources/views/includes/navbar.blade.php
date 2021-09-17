@@ -66,8 +66,13 @@
                       >Settings</a
                     >
                     <div class="dropdown-divider"></div>
-                    
-                  </div>
+                    <a class="list-group-item list-group-item-action" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                      {{ __('Logout') }}
+                    </a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                      @csrf
+                    </form>
+                    </div>
                 </li>
                 <li class="nav-item">
                   @php $carts = \App\Models\Cart::where('users_id', Auth::user()->id)->count(); @endphp

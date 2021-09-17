@@ -21,14 +21,13 @@ Dashboard Products Page
                     href="{{ route('dashboard') }}"
                     class="
                         list-group-item list-group-item-action
-                        {{ (request()->is('dashboard*')) ? 'active' : '' }}
                     "
                 >
                     Dashboard
                 </a>
                 <a
                     href="{{ route('dashboard-product') }}"
-                    class="list-group-item list-group-item-action {{ (request()->is('dashboard/product*')) ? 'active' : '' }}"
+                    class="list-group-item list-group-item-action {{ (request()->is('dashboard/products*')) ? 'active' : '' }}"
                 >
                     My Products
                 </a>
@@ -106,7 +105,7 @@ Dashboard Products Page
                                             profile-picture
                                         "
                                     />
-                                    Hi, Anjani
+                                    Hi, {{ Auth::user()->name }}
                                 </a>
                                 <div class="dropdown-menu">
                                     <a href="#" class="dropdown-item"
@@ -138,7 +137,7 @@ Dashboard Products Page
                         <ul class="navbar-nav d-block d-lg-none">
                             <li class="nav-item">
                                 <a href="#" class="nav-link">
-                                    Hi, Anjani
+                                    Hi, {{ Auth::user()->name }}
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -160,7 +159,7 @@ Dashboard Products Page
                 <div class="container-fluid">
                     <div class="dashboard-heading mt-3 ml-2">
                         <h2 class="dashboard-heading-title">
-                            Cup Holder
+                            Jual Barang
                         </h2>
                         <p
                             class="
@@ -168,11 +167,22 @@ Dashboard Products Page
                                 text-muted
                             "
                         >
-                            Cup Holder details
+                            Jual barang kamu disini
                         </p>
                     </div>
                     <div class="col-12">
-                        <form action="">
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+                        <form action="{{ route('dashboard-product-store') }}" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            <input type="hidden" name="users_id" value="{{ Auth::user()->id }}">
                             <div class="card">
                                 <div class="card-body">
                                     <div class="row">
@@ -183,12 +193,12 @@ Dashboard Products Page
                                                 >
                                                 <input
                                                     type="text"
-                                                    name="toko"
-                                                    id="toko"
+                                                    name="name"
+                                                    id="name"
                                                     class="form-control"
                                                     autofocus
                                                     autocomplete="none"
-                                                    value="Cup Holder"
+                                                    value="Sepatu Keren"
                                                 />
                                             </div>
                                         </div>
@@ -199,8 +209,8 @@ Dashboard Products Page
                                                 >
                                                 <input
                                                     type="number"
-                                                    name="toko"
-                                                    id="toko"
+                                                    name="price"
+                                                    id="price"
                                                     class="form-control"
                                                     autofocus
                                                     autocomplete="none"
@@ -214,26 +224,28 @@ Dashboard Products Page
                                                     >Kategori</label
                                                 >
                                                 <select
-                                                    name=""
-                                                    disabled
+                                                    name="categories_id"
+                                                    id=""
+                                                    required
                                                     class="form-control"
                                                 >
+                                                @foreach ($categories as $category)
                                                     <option
-                                                        name="kategori"
-                                                        value="Peralatan Rumah"
+                                                        value="{{ $category->id }}"
                                                     >
-                                                        Pilih Kategori
+                                                        {{ $category->name }}
                                                     </option>
+                                                @endforeach
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="col-md-12">
-                                            <label for="description"
+                                            <label for="descriptions"
                                                 >Description</label
                                             >
                                             <textarea
-                                                name="description"
-                                                id="description"
+                                                name="descriptions"
+                                                id="descriptions"
                                             ></textarea>
                                         </div>
                                         <div class="col-md-12">
@@ -245,7 +257,7 @@ Dashboard Products Page
                                                 >
                                                 <input
                                                     type="file"
-                                                    name="thumbnails"
+                                                    name="photo"
                                                     id=""
                                                     class="
                                                         form-control
@@ -304,7 +316,7 @@ Dashboard Products Page
     </script>
     <script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
     <script>
-        CKEDITOR.replace("description");
+        CKEDITOR.replace("descriptions");
     </script>
     <script>
     function thisFileUpload() {

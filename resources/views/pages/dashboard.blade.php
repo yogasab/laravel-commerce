@@ -53,9 +53,9 @@
                     <a class="list-group-item list-group-item-action" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
                         {{ __('Logout') }}
                     </a>
-                    {{-- <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                         @csrf
-                    </form> --}}
+                    </form>
                     
                 </div>
             </div>
@@ -63,7 +63,7 @@
             <div id="page-content-wrapper">
                 <nav
                     class="
-                        navbar navbar-expand-lg navbar-light navbar-store
+                    r navbar-expand-lg navbar-light navbar-store
                         fixed-top
                     "
                     data-aos="fade-down"

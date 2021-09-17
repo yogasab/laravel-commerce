@@ -68,10 +68,10 @@
                         &laquo; Menu
                     </button>
                     <button
-                        class="navbar-toggler"
-                        type="button"
-                        data-toggle="collapse"
-                        data-target="#navbarResponsive"
+                  class="navbar-toggler"
+                  type="button"
+                  data-toggle="collapse"
+                  data-target="#navbarResponsive"
                     >
                         <span class="navbar-toggler-icon"></span>
                     </button>

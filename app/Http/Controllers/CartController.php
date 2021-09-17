@@ -24,7 +24,6 @@ class CartController extends Controller
         return redirect()->route('cart');
     }
 
-
     public function success()
     {
         return view('pages.success');

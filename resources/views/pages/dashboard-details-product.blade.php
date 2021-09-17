@@ -1,10 +1,5 @@
-@extends('layouts.dashboard') 
-
-@section('title') 
-Dashboard Products Page
-@endsection 
-
-@section('content')
+@extends('layouts.dashboard') @section('title') Dashboard Products Page
+@endsection @section('content')
 <div class="page-dashboard">
     <div class="d-flex" id="wrapper" data-aos="fade-right">
         <!-- Sidebar -->
@@ -19,16 +14,13 @@ Dashboard Products Page
             <div class="list-group list-group-flush">
                 <a
                     href="{{ route('dashboard') }}"
-                    class="
-                        list-group-item list-group-item-action
-                        {{ (request()->is('dashboard*')) ? 'active' : '' }}
-                    "
+                    class="list-group-item list-group-item-action"
                 >
                     Dashboard
                 </a>
                 <a
                     href="{{ route('dashboard-product') }}"
-                    class="list-group-item list-group-item-action {{ (request()->is('dashboard/product*')) ? 'active' : '' }}"
+                    class="list-group-item list-group-item-action {{ (request()->is('dashboard/products*')) ? 'active' : '' }}"
                 >
                     My Products
                 </a>
@@ -50,10 +42,7 @@ Dashboard Products Page
                 >
                     My Account
                 </a>
-                <a
-                    href="#"
-                    class="list-group-item list-group-item-action"
-                >
+                <a href="#" class="list-group-item list-group-item-action">
                     Logout
                 </a>
             </div>
@@ -63,8 +52,8 @@ Dashboard Products Page
         <div id="page-content-wrapper">
             <nav
                 class="
-                    navbar navbar-expand-lg navbar-light navbar-store
-                    fixed-top
+                  navbar navbar-expand-lg navbar-light navbar-store
+                  fixed-top
                 "
                 data-aos="fade-down"
             >
@@ -103,7 +92,7 @@ Dashboard Products Page
                                             profile-picture
                                         "
                                     />
-                                    Hi, Anjani
+                                    Hi, {{ Auth::user()->name }}
                                 </a>
                                 <div class="dropdown-menu">
                                     <a href="#" class="dropdown-item"
@@ -132,7 +121,9 @@ Dashboard Products Page
                         <!-- Smartphone Menu -->
                         <ul class="navbar-nav d-block d-lg-none">
                             <li class="nav-item">
-                                <a href="#" class="nav-link"> Hi, Anjani </a>
+                                <a href="#" class="nav-link">
+                                    Hi, {{ Auth::user()->name }}
+                                </a>
                             </li>
                             <li class="nav-item">
                                 <a href="#" class="nav-link d-inline-block"
@@ -158,7 +149,26 @@ Dashboard Products Page
                     <div class="dashboard-content">
                         <div class="row">
                             <div class="col-12">
-                                <form action="">
+                                @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                                @endif
+                                <form
+                                    method="POST"
+                                    action="{{ route('dashboard-product-update', $product->id) }}"
+                                    enctype="multipart/form-data"
+                                >
+                                    @csrf
+                                    <input
+                                        name="users_id"
+                                        type="hidden"
+                                        value="{{ Auth::user()->id }}"
+                                    />
                                     <div class="card">
                                         <div class="card-body">
                                             <div class="row">
@@ -169,12 +179,11 @@ Dashboard Products Page
                                                         >
                                                         <input
                                                             type="text"
-                                                            name="toko"
-                                                            id="toko"
+                                                            name="name"
                                                             class="form-control"
                                                             autofocus
                                                             autocomplete="none"
-                                                            value="Cup Holder"
+                                                            value="{{ $product->name }}"
                                                         />
                                                     </div>
                                                 </div>
@@ -185,42 +194,45 @@ Dashboard Products Page
                                                         >
                                                         <input
                                                             type="number"
-                                                            name="toko"
-                                                            id="toko"
+                                                            name="price"
                                                             class="form-control"
                                                             autofocus
                                                             autocomplete="none"
-                                                            value="200"
+                                                            value="{{ $product->price }}"
                                                         />
                                                     </div>
                                                 </div>
                                                 <div class="col-md-12">
                                                     <div class="form-group">
-                                                        <label for="kategori"
+                                                        <label
+                                                            for="categories_id"
                                                             >Kategori</label
                                                         >
                                                         <select
-                                                            name="kategori"
-                                                            disabled
+                                                            name="categories_id"
+                                                            id=""
+                                                            required
                                                             class="form-control"
                                                         >
+                                                        @foreach ($categories as $category)
                                                             <option
-                                                                name="kategori"
-                                                                value="Peralatan Rumah"
+                                                                value="{{ $category->id }}"
                                                             >
-                                                                Pilih Kategori
+                                                              {{ $category->name }}
                                                             </option>
+                                                        @endforeach
                                                         </select>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-12">
-                                                    <label for="description"
-                                                        >Description</label
-                                                    >
+                                                    <label for="description">Description</label>
                                                     <textarea
-                                                        name="description"
-                                                        id="description"
-                                                    ></textarea>
+                                                        name="descriptions"
+                                                        id="descriptions"
+                                                    >
+                                                    {!! $product->descriptions !!}
+                                                    </textarea 
+                                                    >
                                                 </div>
                                                 <div class="col-md-12 mt-2">
                                                     <div class="form-group">
@@ -304,8 +316,8 @@ Dashboard Products Page
                                             <div class="col-md-12">
                                                 <input
                                                     type="file"
-                                                    name="file"
-                                                    id="file"
+                                                    name="photo"
+                                                    id="photo"
                                                     multiple
                                                     style="display: none"
                                                 />
@@ -331,22 +343,20 @@ Dashboard Products Page
         </div>
     </div>
 </div>
-@endsection 
-
-@push('addon-script')
-  <script>
-      $("#menu-toggle").click(function (e) {
-          e.preventDefault();
-          $("#wrapper").toggleClass("toggled");
-      });
-  </script>
-  <script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
-  <script>
-    CKEDITOR.replace("description");
-  </script>
-  <script>
+@endsection @push('addon-script')
+<script>
+    $("#menu-toggle").click(function (e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+</script>
+<script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
+<script>
+    CKEDITOR.replace("descriptions");
+</script>
+<script>
     function thisFileUpload() {
       document.getElementById("file").click();
     }
-  </script>
+</script>
 @endpush
