@@ -1,6 +1,8 @@
 # Aplikasi Web Toko Online Laravel Vue
 > Aplikasi Toko Online menggunakan Framework Laravel dan Vue, serta meggunakan Midtrans Payment Gateway sebagai metode pembayaran
-
+1. [Laravel](https://laravel.com/)
+2. [Vue](https://vuejs.org/)
+3. [Midtrans](https://midtrans.com/)
 # Landing Page
 ![image](https://user-images.githubusercontent.com/68288783/133934715-a31943c3-3bc8-4a61-9991-677ad09cb4d4.png)
 # Landing Page (Categories & Product)
